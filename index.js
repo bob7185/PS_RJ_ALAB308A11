@@ -34,22 +34,7 @@ console.log(flatten(numberArray));
 //modify the recursive function to return a function 
 function flattenArray(arr) {
 
-    let result = [];
-    function checkForNested(ar, index, res) {
-
-        if (index >= ar.length) {
-            return res;
-        }
-        let item = ar[index];
-        if (Array.isArray(item)) {
-            return () => {item.forEach((subItem, subIndex) => checkForNested(item, subIndex, res));
-                return checkForNested(arr, index + 1, res)};
-        } else {
-            res.push(item);
-            return () => checkForNested(ar, index + 1, res);
-        }
-    }
-    return () => checkForNested(arr, 0, result);
+    return () => flatten(arr);
 }
 
 // function trampoline 
@@ -60,6 +45,10 @@ function trampoline(fn) {
     }
     return thunks;
 }
+
 // testing implementation on 
 const numberArray2 = [1, [2, [3, 4], 5], 6];
 console.log(trampoline(flattenArray(numberArray2)));
+
+//Part 3 
+
